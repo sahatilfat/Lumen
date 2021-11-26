@@ -17,12 +17,17 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('kategori', 'KategoriController@index');
 
-$router->get('kategori/{id}', 'KategoriController@show');
 
-$router->delete('kategori/{id}', 'KategoriController@destroy');
+$router->group(['prefix' => 'api'], function () use ($router) {
 
-$router->put('kategori/{id}', 'KategoriController@update');
+    $router->get('kategori', ['uses' => 'KategoriController@index']);
 
-$router->post('kategori', 'KategoriController@create');
+    $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
+
+    $router->delete('kategori/{id}', ['uses' => 'KategoriController@destroy']);
+
+    $router->put('kategori/{id}', ['uses' => 'KategoriController@update']);
+
+    $router->post('kategori', ['uses' => 'KategoriController@create']);
+});
