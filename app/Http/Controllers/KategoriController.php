@@ -14,7 +14,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return response()->json("ini adalah halaman index");
+        $data = Kategori::all();
+
+        return response()->json($data);
     }
 
     /**
@@ -44,9 +46,11 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function show(Kategori $kategori)
+    public function show($id)
     {
-        return response()->json("menampilkan 1 data");
+        $data = Kategori::where('idkategori', $id)->get();
+
+        return response()->json($data);
     }
 
     /**
