@@ -39,4 +39,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('pelanggan/{id}', ['uses' => 'PelangganController@update']);
 
     $router->post('menu', ['uses' => 'MenuController@create']);
+    $router->get('menu', ['uses' => 'MenuController@index']);
 });

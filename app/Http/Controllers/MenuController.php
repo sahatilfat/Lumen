@@ -14,7 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+        $data = Menu::all();
+
+        return response()->json($data);
     }
 
     /**
@@ -24,11 +26,28 @@ class MenuController extends Controller
      */
     public function create(Request $request)
     {
-        $gambar = $request->file('gambar')->getClientOriginalName();
 
+
+        $this->validate($request, [
+            'idkategori' => 'required | numeric',
+            'menu' => 'required',
+            'gambar' => 'required',
+            'harga' => 'required | numeric'
+        ]);
+
+        $gambar = $request->file('gambar')->getClientOriginalName();
         $request->file('gambar')->move('upload', $gambar);
 
-        return response()->json($gambar);
+        $data = [
+            'idkategori' => $request->input('idkategori'),
+            'menu' => $request->input('menu'),
+            'gambar' => url('upload/' . $gambar),
+            'harga' => $request->input('harga')
+        ];
+
+        $menu = Menu::create($data);
+
+        return response()->json($data);
     }
 
     /**
